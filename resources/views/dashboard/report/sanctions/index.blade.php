@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-capitalize">{{ $item->kategori_sanksi }}</td>
-                                    <td>{{ $item->nama_sanksi }}</td>
+                                    <td class="text-capitalize">{{ $item->nama_sanksi }}</td>
                                     <td>
                                         <a href="{{ route('sanctions.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                                         <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"

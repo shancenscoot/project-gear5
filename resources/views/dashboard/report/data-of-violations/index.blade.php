@@ -38,42 +38,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1190815801</td>
-                                <td>Naruto</td>
-                                <td>Tidak Izin Keluar Pondok Pesantren</td>
-                                <td>Potong Gundul</td>
-                                <td>Proses</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>914809184091</td>
-                                <td>Agus</td>
-                                <td>Santri Merokok</td>
-                                <td>Surat Peringatan</td>
-                                <td>Selesai</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>331875981757891</td>
-                                <td>Roronoa Hyuga</td>
-                                <td>Santri Bolos Ngaji</td>
-                                <td>Skorsing</td>
-                                <td>Proses</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
+                            @forelse ($dataOfViolations as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->santri->nis }}</td>
+                                    <td class="text-capitalize">{{ $item->santri->nama_santri }}</td>
+                                    <td class="text-capitalize">{{ $item->pelanggaran->nama_pelanggaran }}</td>
+                                    <td class="text-capitalize">{{ $item->sanksi->nama_sanksi }}</td>
+                                    <td>Proses</td>
+                                    <td>
+                                        <a href="" class="btn btn-warning">Edit</a>
+                                        <a href="#" class="btn btn-danger">Hapus</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

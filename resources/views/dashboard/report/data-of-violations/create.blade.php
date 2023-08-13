@@ -26,46 +26,58 @@
                         class="text-secondary">format
                         table</span>
                 </div>
-                <form>
-                    <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Nama Santri / NIS</label>
+                @foreach ($errors->all() as $item)
+                    {{ $item }}
+                @endforeach
+                <form action="{{ route('data-of-violations.store') }}" method="POST">
+                    @csrf
+                    <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Nama Santri</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control" aria-label="Default select example">
-                                <option selected="">Nama Santri / NIS</option>
-                                <option value="1">Naruto / 1190815801</option>
-                                <option value="2">Agus / 914809184091</option>
-                                <option value="3">Roronoa Hyuga / 331875981757891 </option>
-                                <option value="4">Goat Robot / 41874917591</option>
-                                <option value="5">Katakuri / 18758917597197</option>
+                            <select class="form-select form-control" name="santri_id" aria-label="Default select example">
+                                <option selected="" value="">Nama Santri</option>
+                                @foreach ($santri as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_santri }}</option>
+                                @endforeach
                             </select>
+                            @error('santri_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Pelanggaran</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control" aria-label="Default select example">
-                                <option selected="">Pelanggaran</option>
-                                <option value="1">Tidak Izin Keluar Pondok Pesantren</option>
-                                <option value="2">Santri Mencuri Makanan</option>
-                                <option value="3">Santri Berpacaran</option>
-                                <option value="4">Santri Bolos Ngaji</option>
-                                <option value="5">Santri Merokok</option>
-                                <option value="6">Santri Tidak Sholat</option>
+                            <select class="form-select form-control" name="violation_id"
+                                aria-label="Default select example">
+                                <option selected="" value="">Pelanggaran</option>
+                                @foreach ($pelanggaran as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_pelanggaran }}</option>
+                                @endforeach
                             </select>
+                            @error('violation_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Sanksi</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control" aria-label="Default select example">
-                                <option selected="">Sanksi</option>
-                                <option value="1">
-                                    Pemberhentian Secara Tidak Hormat Bagi Pengurus Yang Melanggar Kode Etik</option>
-                                <option value="2">Pengembalian Pembinaan</option>
-                                <option value="3">Skorsing</option>
-                                <option value="4">Surat Peringatan</option>
-                                <option value="5">Potong Gundul</option>
+                            <select class="form-select form-control" name="sanction_id" aria-label="Default select example">
+                                <option selected="" value="">Sanksi</option>
+                                @foreach ($sanksi as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_sanksi }}</option>
+                                @endforeach
                             </select>
+                            @error('sanction_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
-                    <div class="row mb-4"><label for="inputKategori" class="col-sm-2 col-form-label">Status</label>
+                    {{-- <div class="row mb-4"><label for="inputKategori" class="col-sm-2 col-form-label">Status</label>
                         <div class="col-sm-10">
                             <select class="form-select form-control" aria-label="Default select example">
                                 <option selected="">Status</option>
@@ -73,7 +85,7 @@
                                 <option value="2">Selesai</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- deskripsi --}}
                     {{-- <div class="row mb-4"><label for="deskripsi" class="col-sm-2 py-0 col-form-label">Deskripsi</label>

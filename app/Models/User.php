@@ -45,4 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function santri()
+    {
+        return $this->hasMany(Santri::class, 'wali_id');
+    }
 }

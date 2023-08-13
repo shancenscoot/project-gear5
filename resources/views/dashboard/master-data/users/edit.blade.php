@@ -3,15 +3,15 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-3">
-            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Tambah Data Santri</h1>
+            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Tambah Data Users</h1>
         </div>
 
         <nav style="--bs-breadcrumb-divider:'>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active font-weight-bolder" aria-current="page">
-                    <a href="{{ route('santri.index') }}">Data Santri</a>
+                    <a href="{{ route('users.index') }}">Data Users</a>
                 </li>
-                <li class="breadcrumb-item">Tambah Santri</li>
+                <li class="breadcrumb-item">Tambah User</li>
             </ol>
         </nav>
 
@@ -22,31 +22,20 @@
             </div>
             <div class="card-body">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h5 mb-0 text-gray-800 font-weight-bolder">Tambah Data Santri</h1><span
+                    <h1 class="h5 mb-0 text-gray-800 font-weight-bolder">Tambah Data User</h1><span
                         class="text-secondary">format
                         table</span>
                 </div>
-                <form action="{{ route('santri.store') }}" method="POST">
+                <form action="{{ route('users.update', $user->id) }}" method="POST">
                     @csrf
-                    {{-- <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Nama Wali</label>
-                        <div class="col-sm-10">
-                            <select class="form-select form-control" aria-label="Default select example">
-                                <option selected="" disabled="">Nama Wali</option>
-                                <option value="1">Minato</option>
-                                <option value="2">Oyeng</option>
-                                <option value="3">Roronoa Zoro</option>
-                                <option value="4">Halland</option>
-                                <option value="5">Daimond Stone</option>
-                            </select>
-                        </div>
-                    </div> --}}
+                    @method('PUT')
                     <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">Nama Santri</label>
+                        <label for="inputBiaya" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input type="text" value="{{ old('nama_santri') }}" name="nama_santri"
-                                class="form-control @error('nama_santri') is-invalid @enderror" id="inputBiaya"
-                                placeholder="nama santri...">
-                            @error('nama_santri')
+                            <input type="text" value="{{ old('name', $user->name) }}" name="name"
+                                class="form-control @error('name') is-invalid @enderror" id="inputBiaya"
+                                placeholder="name...">
+                            @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -54,58 +43,12 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">Nama Wali</label>
+                        <label for="inputBiaya" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control @error('wali_id') is-invalid @enderror" name="wali_id"
-                                aria-label="Default select example">
-                                <option selected="" value="">Nama Wali</option>
-                                @foreach ($wali as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('wali_id')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                        <div class="col-sm-10">
-                            <select class="form-select form-control @error('jenis_kelamin') is-invalid @enderror"
-                                name="jenis_kelamin" aria-label="Default select example">
-                                <option selected="" disabled="">Jenis Kelamin</option>
-                                <option value="L">Laki - Laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                            @error('jenis_kelamin')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">NIS</label>
-                        <div class="col-sm-10">
-                            <input type="number" value="{{ old('nis') }}" name="nis"
-                                class="form-control @error('nis') is-invalid @enderror" id="inputBiaya"
-                                placeholder="nis...">
-                            @error('nis')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">Alamat</label>
-                        <div class="col-sm-10">
-                            <input type="text" value="{{ old('alamat') }}" name="alamat"
-                                class="form-control @error('alamat') is-invalid @enderror" id="inputBiaya"
-                                placeholder="alamat...">
-                            @error('alamat')
+                            <input type="text" value="{{ old('username', $user->username) }}" name="username"
+                                class="form-control @error('username') is-invalid @enderror" id="inputBiaya"
+                                placeholder="username...">
+                            @error('username')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -115,10 +58,39 @@
                     <div class="row mb-4">
                         <label for="inputBiaya" class="col-sm-2 col-form-label">No Telp</label>
                         <div class="col-sm-10">
-                            <input type="number" value="{{ old('no_telp') }}" name="no_telp"
+                            <input type="number" value="{{ old('no_telp', $user->no_telp) }}" name="no_telp"
                                 class="form-control @error('no_telp') is-invalid @enderror" id="inputBiaya"
-                                placeholder="no telp...">
+                                placeholder="no_telp...">
                             @error('no_telp')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <label for="inputKategori" class="col-sm-2 col-form-label">Role</label>
+                        <div class="col-sm-10">
+                            <select class="form-select form-control @error('role') is-invalid @enderror" name="role"
+                                aria-label="Default select example">
+                                <option selected="" disabled="">role</option>
+                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>admin</option>
+                                <option value="petugas" {{ $user->role == 'petugas' ? 'selected' : '' }}>petugas</option>
+                            </select>
+                            @error('role')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <label for="inputBiaya" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" value="{{ old('password') }}" name="password"
+                                class="form-control @error('password') is-invalid @enderror" id="inputBiaya"
+                                placeholder="password...">
+                            @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Santri;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SantriController extends Controller
@@ -13,7 +14,7 @@ class SantriController extends Controller
     public function index()
     {
         return view('dashboard.master-data.santri.index', [
-            'santris' => Santri::all(),
+            'santris' => Santri::with('wali')->get(),
         ]);
     }
 
@@ -22,7 +23,9 @@ class SantriController extends Controller
      */
     public function create()
     {
-        return view('dashboard.master-data.santri.create');
+        return view('dashboard.master-data.santri.create', [
+            'wali' => User::where('role', '=', 'wali')->get(),
+        ]);
     }
 
     /**
@@ -37,6 +40,7 @@ class SantriController extends Controller
             // 'nama_wali' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
+            'wali_id' => 'nullable',
         ]);
 
         Santri::create($data);
@@ -61,6 +65,7 @@ class SantriController extends Controller
     {
         return view('dashboard.master-data.santri.edit', [
             'santri' => $santri,
+            'wali' => User::where('role', '=', 'wali')->get(),
         ]);
     }
 
@@ -76,6 +81,7 @@ class SantriController extends Controller
             // 'nama_wali' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
+            'wali_id' => 'nullable',
         ]);
 
         $santri->update($data);

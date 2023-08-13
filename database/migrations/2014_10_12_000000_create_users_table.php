@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_telp')->nullable();
             $table->string('alamat')->nullable();
-            $table->enum('role', ['admin', 'petugas', 'wali']);
+            $table->enum('role', ['admin', 'petugas', 'wali'])->default('wali');
 
             $table->rememberToken();
             $table->timestamps();

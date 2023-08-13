@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataOfViolation;
+use App\Models\Sanction;
+use App\Models\Santri;
+use App\Models\Violation;
 use Illuminate\Http\Request;
 
 class DataOfViolationController extends Controller
@@ -12,7 +15,19 @@ class DataOfViolationController extends Controller
      */
     public function index()
     {
-        return view('dashboard.report.data-of-violations.index');
+        $dataOfViolations = DataOfViolation::with([
+            'santri',
+            'pelanggaran',
+            'sanksi',
+        ])->get();
+        return $dataOfViolations;
+        return view('dashboard.report.data-of-violations.index', [
+            'dataOfViolations' => DataOfViolation::with([
+                'santri',
+                'pelanggaran',
+                'sanksi',
+            ])->get(),
+        ]);
     }
 
     /**
@@ -20,7 +35,11 @@ class DataOfViolationController extends Controller
      */
     public function create()
     {
-        return view('dashboard.report.data-of-violations.create');
+        return view('dashboard.report.data-of-violations.create', [
+            'santri' => Santri::all(),
+            'pelanggaran' => Violation::all(),
+            'sanksi' => Sanction::all(),
+        ]);
     }
 
     /**
@@ -28,7 +47,17 @@ class DataOfViolationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'santri_id' => 'required|exists:santris,id',
+            'violation_id' => 'required|exists:violations,id',
+            'sanction_id' => 'required|exists:sanctions,id',
+        ]);
+        // return $data;
+        DataOfViolation::create($data);
+
+        sweetalert()->addSuccess('Berhasil menambahkan data.');
+
+        return redirect()->route('data-of-violations.index');
     }
 
     /**

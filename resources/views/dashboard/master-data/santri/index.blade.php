@@ -31,7 +31,7 @@
                                 <th>NIS</th>
                                 <th>Nama Santri</th>
                                 <th>Jenis Kelamin</th>
-                                {{-- <th>Nama Wali</th> --}}
+                                <th>Nama Wali</th>
                                 <th>Alamat</th>
                                 <th>No telp</th>
                                 <th>Action</th>
@@ -45,7 +45,7 @@
                                     <td class="text-capitalize">{{ $item->nama_santri }}</td>
                                     <td class="text-capitalize">
                                         {{ $item->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
-                                    {{-- <td class="text-capitalize">{{ $item->namawali }}</td> --}}
+                                    <td class="text-capitalize">{{ $item->wali->name ?? 'Belum ada wali' }}</td>
                                     <td class="text-capitalize">{{ $item->alamat }}</td>
                                     <td>{{ $item->no_telp }}</td>
                                     <td>

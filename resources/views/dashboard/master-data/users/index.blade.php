@@ -28,6 +28,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Nama</th>
                                 <th>Username</th>
                                 <th>Level</th>
                                 <th>No telp</th>
@@ -35,56 +36,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Administrator</td>
-                                <td>Admin</td>
-                                <td>0828192912891</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Oyeng</td>
-                                <td>Petugas</td>
-                                <td>18798174918</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Monkey D Luffy</td>
-                                <td>admin</td>
-                                <td>10187489174</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Jotaro</td>
-                                <td>Petugas</td>
-                                <td>0193010101</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Star Platinum</td>
-                                <td>Petugas</td>
-                                <td>197419875109</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
+                            @forelse ($users as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-capitalize">{{ $item->name }}</td>
+                                    <td class="text-capitalize">{{ $item->username }}</td>
+                                    <td class="text-capitalize">{{ $item->role }}</td>
+                                    <td>{{ $item->no_telp }}</td>
+                                    <td>
+                                        <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                        <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"
+                                            action="{{ route('users.destroy', $item->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button href="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Tidak ada data</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

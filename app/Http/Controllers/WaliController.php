@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WaliController extends Controller
@@ -11,7 +12,11 @@ class WaliController extends Controller
      */
     public function index()
     {
-        return view('dashboard.master-data.wali.index');
+        // $wali = User::where('role', '=', 'wali')->with('santri')->get();
+        // return $wali;
+        return view('dashboard.master-data.wali.index', [
+            'wali' => User::where('role', '=', 'wali')->with('santri')->get(),
+        ]);
     }
 
     /**
@@ -27,7 +32,23 @@ class WaliController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'alamat' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data['password'] = bcrypt($data['password']);
+
+        $data['role'] = 'wali';
+
+        User::create($data);
+
+        sweetalert()->addSuccess('Berhasil menambahkan data.');
+
+        return redirect()->route('wali.index');
     }
 
     /**
@@ -43,15 +64,31 @@ class WaliController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('dashboard.master-data.wali.edit', [
+            'wali' => User::find($id),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $wali)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'alamat' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data['password'] = bcrypt($data['password']);
+
+        $wali->update($data);
+
+        sweetalert()->addSuccess('Berhasil mengubah data.');
+
+        return redirect()->route('wali.index');
     }
 
     /**
@@ -59,6 +96,10 @@ class WaliController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::destroy($id);
+
+        sweetalert()->addSuccess('Berhasil menghapus data.');
+
+        return redirect()->route('wali.index');
     }
 }

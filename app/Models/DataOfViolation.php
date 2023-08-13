@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class DataOfViolation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'santri_id',
+        'violation_id',
+        'sanction_id',
+        'status',
+    ];
+
+    public function santri()
+    {
+        return $this->belongsTo(Santri::class);
+    }
+
+    public function pelanggaran()
+    {
+        return $this->belongsTo(Violation::class);
+    }
+
+    public function sanksi()
+    {
+        return $this->belongsTo(Sanction::class);
+    }
 }

@@ -12,7 +12,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('dashboard.master-data.users.index');
+        return view('dashboard.master-data.users.index', [
+            'users' => User::where('role', '=', 'admin')
+                ->orWhere('role', '=', 'petugas')
+                ->get(),
+        ]);
     }
 
     /**
@@ -28,7 +32,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'role' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+
+        sweetalert()->addSuccess('Berhasil menambahkan data.');
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -44,7 +62,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('dashboard.master-data.users.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -52,7 +72,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'no_telp' => 'required',
+            'role' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data['password'] = bcrypt($data['password']);
+
+        $user->update($data);
+
+        sweetalert()->addSuccess('Berhasil mengubah data.');
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -60,6 +94,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        sweetalert()->addSuccess('Berhasil menghapus data.');
+
+        return redirect()->route('users.index');
     }
 }

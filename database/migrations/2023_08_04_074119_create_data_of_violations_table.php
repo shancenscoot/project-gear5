@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('data_of_violations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('santri_id')->constrained('santris');
+            $table->foreignId('violation_id')->constrained('violations');
+            $table->foreignId('sanction_id')->constrained('sanctions');
+            $table->enum('status', ['proses', 'selesai'])->default('proses');
+
             $table->timestamps();
         });
     }

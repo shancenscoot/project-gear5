@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
+            $table->integer('wali_id')->unsigned()->nullable();
             $table->integer('nis');
             $table->string('nama_santri');
             $table->enum('jenis_kelamin', ['L', 'P']);

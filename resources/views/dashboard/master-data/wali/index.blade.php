@@ -36,61 +36,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Minato</td>
-                                <td>Naruto</td>
-                                <td>Jln.Hokage, Desa Konoha, No.12</td>
-                                <td>04908171909</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Oyeng</td>
-                                <td>Agus</td>
-                                <td>Jln.Lapangan, Desa Paiton, No 9</td>
-                                <td>81979187</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Roronoa Zoro</td>
-                                <td>Roronoa Hyuga</td>
-                                <td>Jln.Marine, Desa Bounty, No 66</td>
-                                <td>1011341414</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Halland</td>
-                                <td>Goat Robot</td>
-                                <td>Jln.City, Desa manchester, No 11</td>
-                                <td>0191878917901</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Daimond Stone</td>
-                                <td>Katakuri</td>
-                                <td>Jln.Miami, Desa cikago, No 09</td>
-                                <td>197419875109</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
+                            @forelse ($wali as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-capitalize">{{ $item->name }}</td>
+                                    <td class="text-capitalize">
+                                        @forelse ($item->santri as $item)
+                                            <ul>
+                                                <li>
+                                                    {{ $item->nama_santri ?? '-' }}
+                                                </li>
+                                            </ul>
+                                        @empty
+                                            <ul>
+                                                <li>
+                                                    tidak ada anak
+                                                </li>
+                                            </ul>
+                                        @endforelse
+                                    </td>
+                                    <td class="text-capitalize">{{ $item->alamat }}</td>
+                                    <td>{{ $item->no_telp }}</td>
+                                    <td>
+                                        <a href="{{ route('wali.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                        <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"
+                                            action="{{ route('wali.destroy', $item->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button href="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Tidak ada data</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
