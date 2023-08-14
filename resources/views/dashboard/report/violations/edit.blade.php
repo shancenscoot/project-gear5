@@ -37,8 +37,8 @@
                     <div class="row mb-4"><label for="inputKategori" class="col-sm-2 col-form-label">
                             Kategori Pelanggaran</label>
                         <div class="col-sm-10">
-                            <select class="form-select form-control" name="kategori_pelanggaran"
-                                aria-label="Default select example">
+                            <select class="form-select form-control @error('kategori_pelanggaran') is-invalid @enderror"
+                                name="kategori_pelanggaran" aria-label="Default select example">
                                 <option selected="" disabled="">kategori pelanggaran</option>
                                 <option value="ringan" {{ $violation->kategori_pelanggaran == 'ringan' ? 'selected' : '' }}>
                                     Ringan</option>

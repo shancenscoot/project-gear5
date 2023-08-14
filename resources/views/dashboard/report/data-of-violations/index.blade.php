@@ -43,12 +43,23 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->santri->nis }}</td>
                                     <td class="text-capitalize">{{ $item->santri->nama_santri }}</td>
-                                    <td class="text-capitalize">{{ $item->pelanggaran->nama_pelanggaran }}</td>
-                                    <td class="text-capitalize">{{ $item->sanksi->nama_sanksi }}</td>
-                                    <td>Proses</td>
+                                    <td class="text-capitalize">{{ $item->violation?->nama_pelanggaran }}</td>
+                                    <td class="text-capitalize">{{ $item->sanction?->nama_sanksi }}</td>
+                                    <td class="text-capitalize">{{ $item->status }}</td>
                                     <td>
-                                        <a href="" class="btn btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-danger">Hapus</a>
+                                        <div class="d-inline-flex">
+                                            <a href="{{ route('data-of-violations.edit', $item->id) }}"
+                                                class="btn btn-warning mr-1"><i class="fas fa-edit"></i>
+                                            </a>
+                                            <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"
+                                                action="{{ route('data-of-violations.destroy', $item->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button href="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

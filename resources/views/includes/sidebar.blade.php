@@ -11,79 +11,84 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ Request::url('/') == url('/') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item {{ Request::url('/') == url('/') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('dashboard') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
-    <!-- Nav Item - Dashboard Wali -->
-    <li class="nav-item {{ Request::url('/dashboard-wali') == url('/dashboard-wali') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('dashboard.wali') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard Wali</span></a>
-    </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Interface
-    </div>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Master Data</span>
-        </a>
-        <div id="collapseTwo"
-            class="collapse
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Interface
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Master Data</span>
+            </a>
+            <div id="collapseTwo"
+                class="collapse
         {{ request()->is('users*') || request()->is('wali*') || request()->is('santri*') ? 'show' : '' }}
         "
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Data Users</h6>
-                <a class="collapse-item {{ request()->is('users*') ? 'active' : '' }}"
-                    href="{{ route('users.index') }}">Users</a>
-                <a class="collapse-item {{ request()->is('wali*') ? 'active' : '' }}"
-                    href="{{ route('wali.index') }}">Wali Santri</a>
-                <a class="collapse-item {{ request()->is('santri*') ? 'active' : '' }}"
-                    href="{{ route('santri.index') }}">Santri</a>
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Data Users</h6>
+                    <a class="collapse-item {{ request()->is('users*') ? 'active' : '' }}"
+                        href="{{ route('users.index') }}">Users</a>
+                    <a class="collapse-item {{ request()->is('wali*') ? 'active' : '' }}"
+                        href="{{ route('wali.index') }}">Wali Santri</a>
+                    <a class="collapse-item {{ request()->is('santri*') ? 'active' : '' }}"
+                        href="{{ route('santri.index') }}">Santri</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Data Laporan</span>
-        </a>
-        <div id="collapseUtilities"
-            class="collapse
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Data Laporan</span>
+            </a>
+            <div id="collapseUtilities"
+                class="collapse
         {{ request()->is('violations*') || request()->is('sanctions*') || request()->is('data-of-violations*') || request()->is('prints*') ? 'show' : '' }}"
-            aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Data</h6>
-                <a class="collapse-item {{ request()->is('data-of-violations*') ? 'active' : '' }}"
-                    href="{{ route('data-of-violations.index') }}">Data Pelanggaran</a>
-                <a class="collapse-item {{ request()->is('violations*') ? 'active' : '' }}"
-                    href="{{ route('violations.index') }}">Pelanggaran</a>
-                <a class="collapse-item {{ request()->is('sanctions*') ? 'active' : '' }}"
-                    href="{{ route('sanctions.index') }}">Sanksi</a>
-                <a class="collapse-item {{ request()->is('prints*') ? 'active' : '' }}"
-                    href="{{ route('prints.index') }}">Cetak Laporan</a>
+                aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Data</h6>
+                    <a class="collapse-item {{ request()->is('data-of-violations*') ? 'active' : '' }}"
+                        href="{{ route('data-of-violations.index') }}">Data Pelanggaran</a>
+                    <a class="collapse-item {{ request()->is('violations*') ? 'active' : '' }}"
+                        href="{{ route('violations.index') }}">Pelanggaran</a>
+                    <a class="collapse-item {{ request()->is('sanctions*') ? 'active' : '' }}"
+                        href="{{ route('sanctions.index') }}">Sanksi</a>
+                    <a class="collapse-item {{ request()->is('prints*') ? 'active' : '' }}"
+                        href="{{ route('prints.index') }}">Cetak Laporan</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    @else
+        <!-- Nav Item - Dashboard Wali -->
+        <li class="nav-item {{ Request::url('/dashboard-wali') == url('/dashboard-wali') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('dashboard.wali') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard Wali</span></a>
+        </li>
+    @endif
+
 
     <!-- Heading -->
     {{-- <div class="sidebar-heading">

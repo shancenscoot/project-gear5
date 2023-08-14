@@ -20,7 +20,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Admin</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahAdmin }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +38,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Petugas</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahPetugas }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -57,7 +57,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Wali Santri</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahWali }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -75,7 +75,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Santri</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahSanti }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -93,7 +93,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Pelanggaran</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahPelanggaran }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>

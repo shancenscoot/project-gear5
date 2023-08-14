@@ -30,21 +30,21 @@
                                 <th>Nama Santri</th>
                                 <th>Pelanggaran</th>
                                 <th>Sanksi</th>
-                                <th>Action</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1190815801</td>
-                                <td>Naruto</td>
-                                <td>Tidak Izin Keluar Pondok Pesantren</td>
-                                <td>Potong Gundul</td>
-                                <td>
-                                    <a href="#" class="btn btn-warning">Detail</a>
-                                </td>
-                            </tr>
-                            </tr>
+                            @foreach ($wali as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->santri->nis }}</td>
+                                    <td class="text-capitalize">{{ $item->santri->nama_santri }}</td>
+                                    <td class="text-capitalize">{{ $item->violation->nama_pelanggaran }}</td>
+                                    <td class="text-capitalize">{{ $item->sanction->nama_sanksi }}</td>
+                                    <td class="text-capitalize">{{ $item->status }}</td>
+                                </tr>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

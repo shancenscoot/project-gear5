@@ -29,8 +29,9 @@
                 @foreach ($errors->all() as $item)
                     {{ $item }}
                 @endforeach
-                <form action="{{ route('data-of-violations.store') }}" method="POST">
+                <form action="{{ route('data-of-violations.update', $dataOfViolation->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="row mb-4">
                         <label for="inputBiaya" class="col-sm-2 col-form-label">Nama Santri</label>
                         <div class="col-sm-10">
@@ -38,7 +39,10 @@
                                 name="santri_id" aria-label="Default select example">
                                 <option selected="" value="">Nama Santri</option>
                                 @foreach ($santri as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_santri }}</option>
+                                    <option value="{{ $item->id }}"
+                                        {{ old('santri_id', $dataOfViolation->santri_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama_santri }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('santri_id')
@@ -55,7 +59,10 @@
                                 name="violation_id" aria-label="Default select example">
                                 <option selected="" value="">Pelanggaran</option>
                                 @foreach ($pelanggaran as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_pelanggaran }}</option>
+                                    <option value="{{ $item->id }}"
+                                        {{ old('violation_id', $dataOfViolation->violation_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama_pelanggaran }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('violation_id')
@@ -72,7 +79,10 @@
                                 name="sanction_id" aria-label="Default select example">
                                 <option selected="" value="">Sanksi</option>
                                 @foreach ($sanksi as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_sanksi }}</option>
+                                    <option value="{{ $item->id }}"
+                                        {{ old('sanction_id', $dataOfViolation->sanction_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama_sanksi }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('sanction_id')
@@ -82,6 +92,57 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row mb-4">
+                        <label for="inputBiaya" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <select class="form-select form-control @error('status') is-invalid @enderror" name="status"
+                                aria-label="Default select example">
+                                <option selected="" disabled="">Status</option>
+                                <option value="proses" {{ $dataOfViolation->status == 'proses' ? 'selected' : '' }}>Proses
+                                </option>
+                                <option value="selesai" {{ $dataOfViolation->status == 'selesai' ? 'selected' : '' }}>
+                                    Selesai</option>
+                            </select>
+                            @error('status')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    {{-- <div class="row mb-4"><label for="inputKategori" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <select class="form-select form-control" aria-label="Default select example">
+                                <option selected="">Status</option>
+                                <option value="1">Proses</option>
+                                <option value="2">Selesai</option>
+                            </select>
+                        </div>
+                    </div> --}}
+
+                    {{-- deskripsi --}}
+                    {{-- <div class="row mb-4"><label for="deskripsi" class="col-sm-2 py-0 col-form-label">Deskripsi</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="deskripsi..."></textarea>
+                        </div>
+                    </div> --}}
+
+                    {{-- status --}}
+                    {{-- <div class="row mb-4">
+                        <label for="inputNominal" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10 d-flex gap-4 align-items-center">
+                            <div class="form-check mr-3"><input type="radio" class="form-check-input"
+                                    id="validationFormCheck2" name="radio-stacked" checked="" required=""><label
+                                    class="form-check-label" for="validationFormCheck2">Aktif</label></div>
+                            <div class="form-check"><input type="radio" class="form-check-input" id="validationFormCheck3"
+                                    name="radio-stacked" required=""><label class="form-check-label"
+                                    for="validationFormCheck3">Nonaktif</label>
+                                <div class="invalid-feedback">More example invalid feedback text
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+
                     <div class="d-flex justify-content-end mt-4"><button type="submit"
                             class="btn btn-sm px-3 btn-primary rounded-pill">Simpan</button></div>
                 </form>

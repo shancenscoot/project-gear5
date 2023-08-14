@@ -21,13 +21,13 @@ class DataOfViolation extends Model
         return $this->belongsTo(Santri::class);
     }
 
-    public function pelanggaran()
+    public function violation()
     {
-        return $this->belongsTo(Violation::class);
+        return $this->belongsTo(Violation::class, 'violation_id');
     }
 
-    public function sanksi()
+    public function sanction()
     {
-        return $this->belongsTo(Sanction::class);
+        return $this->belongsTo(Sanction::class, 'sanction_id');
     }
 }

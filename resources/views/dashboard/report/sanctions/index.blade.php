@@ -40,13 +40,18 @@
                                     <td class="text-capitalize">{{ $item->kategori_sanksi }}</td>
                                     <td class="text-capitalize">{{ $item->nama_sanksi }}</td>
                                     <td>
-                                        <a href="{{ route('sanctions.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                                        <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"
-                                            action="{{ route('sanctions.destroy', $item->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button href="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
+                                        <div class="d-inline-flex">
+                                            <a href="{{ route('sanctions.edit', $item->id) }}"
+                                                class="btn btn-warning mr-1"><i class="fas fa-edit"></i></a>
+                                            <form method="POST" onsubmit="return confirm('Apakah anda yakin?')"
+                                                action="{{ route('sanctions.destroy', $item->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button href="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

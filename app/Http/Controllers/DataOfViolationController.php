@@ -15,17 +15,17 @@ class DataOfViolationController extends Controller
      */
     public function index()
     {
-        $dataOfViolations = DataOfViolation::with([
-            'santri',
-            'pelanggaran',
-            'sanksi',
-        ])->get();
-        return $dataOfViolations;
+        // $dataOfViolations = DataOfViolation::with([
+        //     'santri',
+        //     'violation',
+        //     'sanction',
+        // ])->get();
+        // return $dataOfViolations;
         return view('dashboard.report.data-of-violations.index', [
             'dataOfViolations' => DataOfViolation::with([
                 'santri',
-                'pelanggaran',
-                'sanksi',
+                'violation',
+                'sanction',
             ])->get(),
         ]);
     }
@@ -73,7 +73,12 @@ class DataOfViolationController extends Controller
      */
     public function edit(DataOfViolation $dataOfViolation)
     {
-        //
+        return view('dashboard.report.data-of-violations.edit', [
+            'dataOfViolation' => $dataOfViolation,
+            'santri' => Santri::all(),
+            'pelanggaran' => Violation::all(),
+            'sanksi' => Sanction::all(),
+        ]);
     }
 
     /**
@@ -81,7 +86,18 @@ class DataOfViolationController extends Controller
      */
     public function update(Request $request, DataOfViolation $dataOfViolation)
     {
-        //
+        $data = $request->validate([
+            'santri_id' => 'required|exists:santris,id',
+            'violation_id' => 'required|exists:violations,id',
+            'sanction_id' => 'required|exists:sanctions,id',
+            'status' => 'required',
+        ]);
+
+        $dataOfViolation->update($data);
+
+        sweetalert()->addSuccess('Berhasil mengubah data.');
+
+        return redirect()->route('data-of-violations.index');
     }
 
     /**
@@ -89,6 +105,10 @@ class DataOfViolationController extends Controller
      */
     public function destroy(DataOfViolation $dataOfViolation)
     {
-        //
+        $dataOfViolation->delete();
+
+        sweetalert()->addSuccess('Berhasil menghapus data.');
+
+        return redirect()->route('data-of-violations.index');
     }
 }

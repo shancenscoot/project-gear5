@@ -17,6 +17,11 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (auth()->attempt($credentials)) {
+            if (auth()->user()->role == 'wali') {
+                $request->session()->regenerate();
+                return redirect()->route('dashboard.wali');
+            }
+
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
