@@ -28,18 +28,6 @@
                 </div>
                 <form action="{{ route('santri.store') }}" method="POST">
                     @csrf
-                    {{-- <div class="row mb-4"><label for="inputBiaya" class="col-sm-2 col-form-label">Nama Wali</label>
-                        <div class="col-sm-10">
-                            <select class="form-select form-control" aria-label="Default select example">
-                                <option selected="" disabled="">Nama Wali</option>
-                                <option value="1">Minato</option>
-                                <option value="2">Oyeng</option>
-                                <option value="3">Roronoa Zoro</option>
-                                <option value="4">Halland</option>
-                                <option value="5">Daimond Stone</option>
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="row mb-4">
                         <label for="inputBiaya" class="col-sm-2 col-form-label">Nama Santri</label>
                         <div class="col-sm-10">
@@ -99,56 +87,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">Alamat</label>
-                        <div class="col-sm-10">
-                            <input type="text" value="{{ old('alamat') }}" name="alamat"
-                                class="form-control @error('alamat') is-invalid @enderror" id="inputBiaya"
-                                placeholder="alamat...">
-                            @error('alamat')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="inputBiaya" class="col-sm-2 col-form-label">No Telp</label>
-                        <div class="col-sm-10">
-                            <input type="number" value="{{ old('no_telp') }}" name="no_telp"
-                                class="form-control @error('no_telp') is-invalid @enderror" id="inputBiaya"
-                                placeholder="no telp...">
-                            @error('no_telp')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- deskripsi --}}
-                    {{-- <div class="row mb-4"><label for="deskripsi" class="col-sm-2 py-0 col-form-label">Deskripsi</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="deskripsi..."></textarea>
-                        </div>
-                    </div> --}}
-
-                    {{-- status --}}
-                    {{-- <div class="row mb-4">
-                        <label for="inputNominal" class="col-sm-2 col-form-label">Status</label>
-                        <div class="col-sm-10 d-flex gap-4 align-items-center">
-                            <div class="form-check mr-3"><input type="radio" class="form-check-input"
-                                    id="validationFormCheck2" name="radio-stacked" checked="" required=""><label
-                                    class="form-check-label" for="validationFormCheck2">Aktif</label></div>
-                            <div class="form-check"><input type="radio" class="form-check-input" id="validationFormCheck3"
-                                    name="radio-stacked" required=""><label class="form-check-label"
-                                    for="validationFormCheck3">Nonaktif</label>
-                                <div class="invalid-feedback">More example invalid feedback text
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-
                     <div class="d-flex justify-content-end mt-4"><button type="submit"
                             class="btn btn-sm px-3 btn-primary rounded-pill">Simpan</button></div>
                 </form>

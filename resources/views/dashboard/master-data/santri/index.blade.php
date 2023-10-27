@@ -24,7 +24,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -32,8 +32,6 @@
                                 <th>Nama Santri</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Nama Wali</th>
-                                <th>Alamat</th>
-                                <th>No telp</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,10 +44,11 @@
                                     <td class="text-capitalize">
                                         {{ $item->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
                                     <td class="text-capitalize">{{ $item->wali->name ?? 'Belum ada wali' }}</td>
-                                    <td class="text-capitalize">{{ $item->alamat }}</td>
-                                    <td>{{ $item->no_telp }}</td>
                                     <td>
                                         <div class="d-inline-flex">
+                                            <a href="{{ route('santri.show', $item->id) }}" class="btn btn-info mr-1">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
                                             <a href="{{ route('santri.edit', $item->id) }}" class="btn btn-warning mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>

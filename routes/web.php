@@ -41,16 +41,22 @@ Route::middleware('auth')->group(function () {
 
     //dashboard wali
     Route::get('/dashboard-wali', function () {
-        $wali = DataOfViolation::with([
-            'santri.wali',
-            'violation',
-            'sanction',
-        ])->whereHas('santri.wali', function ($query) {
-            $query->where('id', Auth::user()->id);
-        })->get();
+        $wali = User::with([
+            'santri',
+        ])->where('id', Auth::user()->id)->get();
         // return $wali;
         return view('dashboard-wali', compact('wali'));
     })->name('dashboard.wali');
+
+    // show wali
+    Route::get('/dashboard-wali/{id}', function ($id) {
+        $santri = Santri::with([
+            'dataOfViolations',
+            'wali'
+        ])->where('id', $id)->find($id);
+        // return $wali;
+        return view('dashboard-detail-wali', compact('santri'));
+    })->name('dashboard.wali.show');
 
     // violations = pelanggaran
     Route::resource('violations', ViolationController::class);
@@ -63,7 +69,7 @@ Route::middleware('auth')->group(function () {
     // users = admin,petugas
     Route::resource('users', UserController::class);
     // wali
-    Route::get('/wali', [WaliController::class, 'index'])->name('wali.index');
+    // Route::get('/wali', [WaliController::class, 'index'])->name('wali.index');
     Route::resource('wali', WaliController::class);
     //santri
     Route::resource('santri', SantriController::class);

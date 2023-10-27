@@ -8,7 +8,6 @@
 
         <nav style="--bs-breadcrumb-divider:'>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">Data Laporan</li>
                 <li class="breadcrumb-item active font-weight-bolder" aria-current="page">
                     <a href="#">Data Pelanggaran Santri</a>
                 </li>
@@ -22,35 +21,45 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>NIS</th>
                                 <th>Nama Santri</th>
-                                <th>Pelanggaran</th>
-                                <th>Sanksi</th>
-                                <th>Status</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($wali as $item)
+                            @forelse ($wali as $item)
+                                @foreach ($item->santri as $data)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->nis }}</td>
+                                        <td class="text-capitalize">{{ $data->nama_santri }}</td>
+                                        <td class="text-capitalize">
+                                            {{ $data->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
+                                        <td>
+                                            <div class="d-inline-flex">
+                                                <a href="{{ route('dashboard.wali.show', $data->id) }}"
+                                                    class="btn btn-info mr-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @empty
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->santri->nis }}</td>
-                                    <td class="text-capitalize">{{ $item->santri->nama_santri }}</td>
-                                    <td class="text-capitalize">{{ $item->violation->nama_pelanggaran }}</td>
-                                    <td class="text-capitalize">{{ $item->sanction->nama_sanksi }}</td>
-                                    <td class="text-capitalize">{{ $item->status }}</td>
+                                    <td colspan="7" class="text-center">Tidak ada data</td>
                                 </tr>
-                                </tr>
-                            @endforeach
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- /.container-fluid -->
 @endsection

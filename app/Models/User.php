@@ -48,6 +48,6 @@ class User extends Authenticatable
 
     public function santri()
     {
-        return $this->hasMany(Santri::class, 'wali_id');
+        return $this->hasMany(Santri::class, 'wali_id', 'id', 'wali_id');
     }
 }

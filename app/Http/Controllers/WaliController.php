@@ -12,8 +12,6 @@ class WaliController extends Controller
      */
     public function index()
     {
-        // $wali = User::where('role', '=', 'wali')->with('santri')->get();
-        // return $wali;
         return view('dashboard.master-data.wali.index', [
             'wali' => User::where('role', '=', 'wali')->with('santri')->get(),
         ]);

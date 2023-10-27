@@ -13,20 +13,18 @@ class DataOfViolationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $dataOfViolations = DataOfViolation::with([
-        //     'santri',
-        //     'violation',
-        //     'sanction',
-        // ])->get();
-        // return $dataOfViolations;
+        if ($request->search) {
+            $dataOfViolations = DataOfViolation::with('santri')
+                ->whereHas('santri', function ($query) use ($request) {
+                    $query->where('nama_santri', 'like', '%' . $request->search . '%');
+                })->latest()->get();
+        } else {
+            $dataOfViolations = DataOfViolation::with('santri')->latest()->get();
+        }
         return view('dashboard.report.data-of-violations.index', [
-            'dataOfViolations' => DataOfViolation::with([
-                'santri',
-                'violation',
-                'sanction',
-            ])->get(),
+            'dataOfViolations' => $dataOfViolations,
         ]);
     }
 

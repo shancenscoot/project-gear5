@@ -17,9 +17,6 @@ return new class extends Migration
             $table->integer('nis');
             $table->string('nama_santri');
             $table->enum('jenis_kelamin', ['L', 'P']);
-            // $table->string('nama_wali');
-            $table->text('alamat');
-            $table->string('no_telp');
 
             $table->timestamps();
         });

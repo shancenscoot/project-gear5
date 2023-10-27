@@ -13,14 +13,16 @@ class Santri extends Model
         'nis',
         'nama_santri',
         'jenis_kelamin',
-        // 'nama_wali',
-        'alamat',
-        'no_telp',
         'wali_id',
     ];
 
     public function wali()
     {
         return $this->belongsTo(User::class, 'wali_id');
+    }
+
+    public function dataOfViolations()
+    {
+        return $this->hasMany(DataOfViolation::class);
     }
 }

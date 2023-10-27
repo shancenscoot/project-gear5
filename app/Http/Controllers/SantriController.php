@@ -11,10 +11,19 @@ class SantriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query('search');
+        if (!empty($search)) {
+            $data = Santri::where('nama_santri', 'like', '%' . $search . '%')
+                ->with('wali')->get();
+        } else {
+            $data = Santri::with('wali')->get();
+        }
         return view('dashboard.master-data.santri.index', [
-            'santris' => Santri::with('wali')->get(),
+            // $data => Santri::with('wali')->get(),
+            'santris' => $data,
+            'search' => $search,
         ]);
     }
 
@@ -37,12 +46,8 @@ class SantriController extends Controller
             'nis' => 'required',
             'nama_santri' => 'required',
             'jenis_kelamin' => 'required',
-            // 'nama_wali' => 'required',
-            'alamat' => 'required',
-            'no_telp' => 'required',
             'wali_id' => 'nullable',
         ]);
-
         Santri::create($data);
 
         sweetalert()->addSuccess('Berhasil menambahkan data.');
@@ -55,7 +60,9 @@ class SantriController extends Controller
      */
     public function show(Santri $santri)
     {
-        //
+        return view('dashboard.master-data.santri.show', [
+            'santri' => $santri->load('dataOfViolations'),
+        ]);
     }
 
     /**
@@ -78,11 +85,9 @@ class SantriController extends Controller
             'nis' => 'required',
             'nama_santri' => 'required',
             'jenis_kelamin' => 'required',
-            // 'nama_wali' => 'required',
-            'alamat' => 'required',
-            'no_telp' => 'required',
             'wali_id' => 'nullable',
         ]);
+        $data['wali_id'] = $request->wali_id;
 
         $santri->update($data);
 

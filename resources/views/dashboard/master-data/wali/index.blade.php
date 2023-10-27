@@ -24,7 +24,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -41,10 +41,10 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-capitalize">{{ $item->name }}</td>
                                     <td class="text-capitalize">
-                                        @forelse ($item->santri as $item)
+                                        @forelse ($item->santri as $santri)
                                             <ul>
                                                 <li>
-                                                    {{ $item->nama_santri ?? '-' }}
+                                                    {{ $santri->nama_santri ?? '-' }}
                                                 </li>
                                             </ul>
                                         @empty

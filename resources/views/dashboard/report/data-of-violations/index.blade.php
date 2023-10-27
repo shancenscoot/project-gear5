@@ -25,13 +25,14 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>NIS</th>
                                 <th>Nama Santri</th>
                                 <th>Pelanggaran</th>
+                                <th>Kategori Pelanggaran</th>
                                 <th>Sanksi</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -44,6 +45,9 @@
                                     <td>{{ $item->santri->nis }}</td>
                                     <td class="text-capitalize">{{ $item->santri->nama_santri }}</td>
                                     <td class="text-capitalize">{{ $item->violation?->nama_pelanggaran }}</td>
+                                    <td class="text-capitalize">
+                                        {{ $item->violation->kategori_pelanggaran }}
+                                    </td>
                                     <td class="text-capitalize">{{ $item->sanction?->nama_sanksi }}</td>
                                     <td class="text-capitalize">{{ $item->status }}</td>
                                     <td>
